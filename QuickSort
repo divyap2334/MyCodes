@@ -1,0 +1,48 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int partition(int a[],int l,int r)
+{
+    int temp;
+    int p=a[r],i=l;
+    for(int j=l;j<r;j++)
+    {
+        if(a[j]<=p)
+        {
+            temp=a[i];
+            a[i]=a[j];
+            a[j]=temp;
+            i+=1;
+        }
+    }
+    temp=a[i];
+    a[i]=a[r];
+    a[r]=temp;
+    return i;
+}
+void quick(int a[],int l,int r)
+{
+    if(l<r)
+    {
+        int p=partition(a,l,r);
+        cout<<p<<endl;
+        for(int i=l;i<=r;i++)
+            cout<<a[i]<<" ";
+        cout<<endl;
+        quick(a,l,p-1);
+        quick(a,p+1,r);
+    }
+}
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */  
+    int n;
+    cin>>n;
+    int i,a[n];
+    for(i=0;i<n;i++)
+        cin>>a[i];
+    quick(a,0,n-1);
+    return 0;
+}
